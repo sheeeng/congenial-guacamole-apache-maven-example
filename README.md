@@ -1,3 +1,3 @@
 # congenial-guacamole
 
-Apache Maven test project.
+Testing Apache Maven build automation with Sonotype Nexus Repository.
