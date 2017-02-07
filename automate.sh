@@ -19,4 +19,4 @@ rainbow --config=mvn3 -- mvn \
 clean deploy && \
 jar xvf target/original-*.jar META-INF/MANIFEST.MF && \
 cat META-INF/MANIFEST.MF
-
+rm META-INF/MANIFEST.MF
