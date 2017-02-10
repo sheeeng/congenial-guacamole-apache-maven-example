@@ -18,5 +18,5 @@ rainbow --config=mvn3 -- mvn \
 -Dgitenv.shortrevision=$(git rev-parse --short HEAD) \
 clean deploy && \
 jar xvf target/original-*.jar META-INF/MANIFEST.MF && \
-cat META-INF/MANIFEST.MF
+cat META-INF/MANIFEST.MF && \
 rm -rfv META-INF
