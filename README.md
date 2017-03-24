@@ -1,3 +1,7 @@
-# congenial-guacamole
+# elpmaxe-congenial-guacamole
 
-Testing Apache Maven build automation with Sonotype Nexus Repository.
+Example
+
+* Build Apache Maven project.
+
+* Deploy build artifacts to Sonotype Nexus repository.
