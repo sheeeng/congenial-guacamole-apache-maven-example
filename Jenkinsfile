@@ -45,12 +45,14 @@ node {
         if (isUnix()) {
             sh "'${mvnHome}/bin/mvn' clean install \
                 --batch-mode \
+                --debug \
                 --define skipTests \
                 --threads 1C \
                 --update-snapshots"
         } else {
             bat(/"${mvnHome}\bin\mvn" clean install \
                 --batch-mode \
+                --debug \
                 --define skipTests \
                 --threads 1C \
                 --update-snapshots /)
@@ -63,6 +65,7 @@ node {
             sh "'${mvnHome}/bin/mvn' clean install \
                 org.codehaus.mojo:findbugs-maven-plugin:check pmd:pmd pmd:cpd \
                 --batch-mode \
+                --debug \
                 --define skipTests \
                 --define maven.findbugs.failOnError=false \
                 --define findbugs.failOnError=false \
@@ -71,6 +74,7 @@ node {
             bat(/"${mvnHome}\bin\mvn" clean install \
                 org.codehaus.mojo:findbugs-maven-plugin:check pmd:pmd pmd:cpd \
                 --batch-mode \
+                --debug \
                 --define skipTests \
                 --define maven.findbugs.failOnError=false \
                 --define findbugs.failOnError=false \
@@ -89,6 +93,7 @@ node {
                 sh "'${mvnHome}/bin/mvn' clean source:jar deploy \
                 versions:use-latest-versions \
                 --batch-mode \
+                --debug \
                 --define includes=com.nullaxiomgroup.app:* \
                 --define revision=42.3-SNAPSHOT \
                 --update-snapshots"
@@ -96,6 +101,7 @@ node {
                 bat(/"${mvnHome}\bin\mvn" clean source:jar deploy \
                 versions:use-latest-versions \
                 --batch-mode \
+                --debug \
                 --define includes=com.nullaxiomgroup.app:* \
                 --define revision=42.3-SNAPSHOT \
                 --update-snapshots /)
@@ -135,4 +141,3 @@ void withMavenEnv(List envVars = [], def body) {
         body.call()
     }
 }
-
