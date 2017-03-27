@@ -33,16 +33,11 @@
             <name>Contoso Releases</name>
             <url>http://localhost:8081/nexus/content/repositories/contoso-releases/</url>
         </repository>
-        <repository>
+        <snapshotRepository>
             <id>contoso-snapshots</id>
             <name>Contoso Snapshots</name>
             <url>http://localhost:8081/nexus/content/repositories/contoso-snapshots/</url>
-        </repository>
-        <repository>
-            <id>contoso-3rdparty</id>
-            <name>Contoso 3rd Party</name>
-            <url>http://localhost:8081/nexus/content/repositories/contoso-3rdparty/</url>
-        </repository>
+        </snapshotRepository>
     </distributionManagement>
     <!--
     If you have access to scm then you can place actual url's.
