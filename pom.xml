@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project 
-    xmlns="http://maven.apache.org/POM/4.0.0" 
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.contoso</groupId>
     <artifactId>congenial-guacamole</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.9</version>
+    <version>0.0.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -31,7 +31,17 @@
         <repository>
             <id>contoso-releases</id>
             <name>Contoso Releases</name>
-            <url>http://localhost:8081/repository/contoso-releases/</url>
+            <url>http://localhost:8081/nexus/content/repositories/contoso-releases/</url>
+        </repository>
+        <repository>
+            <id>contoso-snapshots</id>
+            <name>Contoso Snapshots</name>
+            <url>http://localhost:8081/nexus/content/repositories/contoso-snapshots/</url>
+        </repository>
+        <repository>
+            <id>contoso-3rdparty</id>
+            <name>Contoso 3rd Party</name>
+            <url>http://localhost:8081/nexus/content/repositories/contoso-3rdparty/</url>
         </repository>
     </distributionManagement>
     <!--
