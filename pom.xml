@@ -6,16 +6,19 @@
     <groupId>org.contoso</groupId>
     <artifactId>congenial-guacamole</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1</version>
+    <version>0.0.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <prerequisites>
+        <maven>3.1</maven>
+    </prerequisites>
     <dependencies>
         <!-- tag::joda[] -->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.4</version>
+            <version>2.9.9</version>
         </dependency>
         <!-- end::joda[] -->
         <!-- tag::junit[] -->
@@ -68,7 +71,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.1</version>
+                <version>2.8.2</version>
                 <executions>
                     <execution>
                         <id>default-deploy</id>
@@ -80,30 +83,87 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <archive>
-                        <!-- Put the entries into META-INF/MANIFEST.MF file. -->
-                        <manifestEntries>
-                            <contosoTag1>CONTOSOSOTAG</contosoTag1>
-                            <contosoTag2>${project.artifactId}</contosoTag2>
-                            <contosoTag3>${project.version}</contosoTag3>
-                            <contosoTag4>${buildNumber}</contosoTag4>
-                            <contosoTag5>${gitenv.remoteurl}</contosoTag5>
-                            <contosoTag6>${gitenv.branchname}</contosoTag6>
-                            <contosoTag7>${gitenv.commitsCount}</contosoTag7>
-                            <contosoTag8>${gitenv.revision}</contosoTag8>
-                            <contosoTag9>${gitenv.shortrevision}</contosoTag9>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>buildnumber-maven-plugin</artifactId>
+              <version>1.4</version>
+              <executions>
+                <execution>
+                  <phase>generate-resources</phase>
+                  <goals>
+                    <goal>create-metadata</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <attach>true</attach>
+                <!-- Make it available for jar/war classpath resource. -->
+                <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jar-plugin</artifactId>
+              <version>3.0.2</version>
+              <configuration>
+                <archive>
+                  <manifestEntries>
+                    <buildNumber>${buildNumber}</buildNumber>
+                    <mavenBuildTimestamp>${maven.build.timestamp}</mavenBuildTimestamp>
+                    <projectArtifactId>${project.artifactId}</projectArtifactId>
+                    <projectVersion>${project.version}</projectVersion>
+                    <projectUrl>${project.url}</projectUrl>
+                    <scmGitRemoteUrl>${scmGit.remoteUrl}</scmGitRemoteUrl>
+                    <scmGitBranch>${scmGit.branch}</scmGitBranch>
+                    <scmGitCommitsCount>${scmGit.commitsCount}</scmGitCommitsCount>
+                    <scmGitRevision>${scmGit.revision}</scmGitRevision>
+                    <scmGitShortRevision>${scmGit.shortRevision}</scmGitShortRevision>
+                    <scmGitCommitHash>${scmGit.commitHash}</scmGitCommitHash>
+                    <scmGitAbbreviatedCommitHash>${scmGit.abbreviatedCommitHash}</scmGitAbbreviatedCommitHash>
+                    <scmGitTreeHash>${scmGit.treeHash}</scmGitTreeHash>
+                    <scmGitAbbreviatedTreeHash>${scmGit.abbreviatedTreeHash}</scmGitAbbreviatedTreeHash>
+                    <scmGitParentHash>${scmGit.parentHash}</scmGitParentHash>
+                    <scmGitAbbreviatedParentHash>${scmGit.abbreviatedParentHash}</scmGitAbbreviatedParentHash>
+                    <scmGitAuthorName>${scmGit.authorName}</scmGitAuthorName>
+                    <scmGitAuthorEmail>${scmGit.authorEmail}</scmGitAuthorEmail>
+                    <scmGitAuthorDate>${scmGit.authorDate}</scmGitAuthorDate>
+                    <scmGitAuthorDateRFC2822>${scmGit.authorDateRFC2822}</scmGitAuthorDateRFC2822>
+                    <scmGitAuthorDateRelative>${scmGit.authorDateRelative}</scmGitAuthorDateRelative>
+                    <scmGitAuthorDateUNIX>${scmGit.authorDateUNIX}</scmGitAuthorDateUNIX>
+                    <scmGitAuthorDateISO8601>${scmGit.authorDateISO8601}</scmGitAuthorDateISO8601>
+                    <scmGitAuthorDateISO8601Strict>${scmGit.authorDateISO8601Strict}</scmGitAuthorDateISO8601Strict>
+                    <scmGitCommitterName>${scmGit.committerName}</scmGitCommitterName>
+                    <scmGitCommitterEmail>${scmGit.committerEmail}</scmGitCommitterEmail>
+                    <scmGitCommitterDate>${scmGit.committerDate}</scmGitCommitterDate>
+                    <scmGitCommitterDateRFC2822>${scmGit.committerDateRFC2822}</scmGitCommitterDateRFC2822>
+                    <scmGitCommitterDateRelative>${scmGit.committerDateRelative}</scmGitCommitterDateRelative>
+                    <scmGitCommitterDateUNIX>${scmGit.committerDateUNIX}</scmGitCommitterDateUNIX>
+                    <scmGitCommitterDateISO8601>${scmGit.committerDateISO8601}</scmGitCommitterDateISO8601>
+                    <scmGitCommitterDateISO8601Strict>${scmGit.committerDateISO8601Strict}</scmGitCommitterDateISO8601Strict>
+                    <scmGitRefNamesDecorate>${scmGit.refNamesDecorate}</scmGitRefNamesDecorate>
+                    <scmGitRefNames>${scmGit.refNames}</scmGitRefNames>
+                    <scmGitSubject>${scmGit.subject}</scmGitSubject>
+                    <scmGitSanitizedSubject>${scmGit.sanitizedSubject}</scmGitSanitizedSubject>
+                    <scmGitBody>${scmGit.body}</scmGitBody>
+                  </manifestEntries>
+                </archive>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.owasp</groupId>
+              <artifactId>dependency-check-maven</artifactId>
+              <version>1.4.5</version>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>check</goal>
+                  </goals>
+                </execution>
+              </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.1</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -134,61 +194,16 @@
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>2.3</version>
             </plugin>
+        </plugins>
+    </build>
+    <!-- To use the report goals in your POM or parent POM -->
+    <reporting>
+        <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <id>buildNumber</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!--
-                    The doCheck and doUpdate flags actually talk to repository if it's true,
-                    Check would ensure that there are no local changes.
-                    Update would update it.
-                    -->
-                    <doCheck>false</doCheck>
-                    <doUpdate>false</doUpdate>
-                    <!--
-                    This ensures that even if we are not connected to scm than also
-                    take the version from local .svn file.
-                    -->
-                    <revisionOnScmFailure>UnknownRevisionOnScmFailure</revisionOnScmFailure>
-                    <!--
-                    Generate sequence build number based on:
-                    build number and timestamp.
-                    Note: Remove below custom <format> and <items> elements
-                    to revert back to SCM revision.
-                    -->
-                    <!-->
-                    <format>b{0,number}_{1,date,yyyyMMddHHmmss}_{2}</format>
-                    <items>
-                        <item>buildNumber</item>
-                        <item>timestamp</item>
-                        <item>${user.name}</item></items>                        -->
-                        <format>{0,number}</format>
-                        <items>
-                            <item>buildNumber</item>
-                        </items>
-                        <shortRevisionLength>14</shortRevisionLength>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-        <!-- To use the report goals in your POM or parent POM -->
-        <reporting>
-            <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.3</version>
-                </plugin>
-            </plugins>
-        </reporting>
-    </project>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.3</version>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>
