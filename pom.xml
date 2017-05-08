@@ -218,10 +218,10 @@
     Otherwise with <revisionOnScmFailure /> you can give some fake URLs as follows. -->
     <scm>
         <!-- connection>scm:git:http://127.0.0.1/dummy</connection><developerConnection>scm:git:https://127.0.0.1/dummy</developerConnection><tag>HEAD</tag><url>http://127.0.0.1/dummy</url> -->
-        <connection>scm:git:https://github.com/sheeeng/congenial-guacamole</connection>
-        <developerConnection>scm:git:https://github.com/sheeeng/congenial-guacamole</developerConnection>
+        <connection>scm:git:https://github.com/sheeeng/elpmaxe-congenial-guacamole</connection>
+        <developerConnection>scm:git:https://github.com/sheeeng/elpmaxe-congenial-guacamole</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/sheeeng/congenial-guacamole</url>
+        <url>https://github.com/sheeeng/elpmaxe-congenial-guacamole</url>
     </scm>
     <build>
         <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
