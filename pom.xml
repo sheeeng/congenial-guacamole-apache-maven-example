@@ -214,14 +214,10 @@
             <url>http://172.17.0.3:8081/nexus/content/repositories/contoso-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
-    <!--
-    If you have access to scm then you can place actual url's.
-    Otherwise with <revisionOnScmFailure /> you can give some fake URLs as follows.
-    -->
+    <!-- If you have access to scm then you can place actual url's.
+    Otherwise with <revisionOnScmFailure /> you can give some fake URLs as follows. -->
     <scm>
-        <!--
-        <connection>scm:git:http://127.0.0.1/dummy</connection><developerConnection>scm:git:https://127.0.0.1/dummy</developerConnection><tag>HEAD</tag><url>http://127.0.0.1/dummy</url>
-        -->
+        <!-- connection>scm:git:http://127.0.0.1/dummy</connection><developerConnection>scm:git:https://127.0.0.1/dummy</developerConnection><tag>HEAD</tag><url>http://127.0.0.1/dummy</url> -->
         <connection>scm:git:https://github.com/sheeeng/congenial-guacamole</connection>
         <developerConnection>scm:git:https://github.com/sheeeng/congenial-guacamole</developerConnection>
         <tag>HEAD</tag>
@@ -255,82 +251,82 @@
                 </executions>
             </plugin>
             <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>buildnumber-maven-plugin</artifactId>
-              <version>1.4</version>
-              <executions>
-                <execution>
-                  <phase>generate-resources</phase>
-                  <goals>
-                    <goal>create-metadata</goal>
-                  </goals>
-                </execution>
-              </executions>
-              <configuration>
-                <attach>true</attach>
-                <!-- Make it available for jar/war classpath resource. -->
-                <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
-              </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>create-metadata</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <attach>true</attach>
+                    <!-- Make it available for jar/war classpath resource. -->
+                    <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
+                </configuration>
             </plugin>
             <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-jar-plugin</artifactId>
-              <version>3.0.2</version>
-              <configuration>
-                <archive>
-                  <manifestEntries>
-                    <buildNumber>${buildNumber}</buildNumber>
-                    <mavenBuildTimestamp>${maven.build.timestamp}</mavenBuildTimestamp>
-                    <projectArtifactId>${project.artifactId}</projectArtifactId>
-                    <projectVersion>${project.version}</projectVersion>
-                    <projectUrl>${project.url}</projectUrl>
-                    <scmGitRemoteUrl>${scmGit.remoteUrl}</scmGitRemoteUrl>
-                    <scmGitBranch>${scmGit.branch}</scmGitBranch>
-                    <scmGitCommitsCount>${scmGit.commitsCount}</scmGitCommitsCount>
-                    <scmGitRevision>${scmGit.revision}</scmGitRevision>
-                    <scmGitShortRevision>${scmGit.shortRevision}</scmGitShortRevision>
-                    <scmGitCommitHash>${scmGit.commitHash}</scmGitCommitHash>
-                    <scmGitAbbreviatedCommitHash>${scmGit.abbreviatedCommitHash}</scmGitAbbreviatedCommitHash>
-                    <scmGitTreeHash>${scmGit.treeHash}</scmGitTreeHash>
-                    <scmGitAbbreviatedTreeHash>${scmGit.abbreviatedTreeHash}</scmGitAbbreviatedTreeHash>
-                    <scmGitParentHash>${scmGit.parentHash}</scmGitParentHash>
-                    <scmGitAbbreviatedParentHash>${scmGit.abbreviatedParentHash}</scmGitAbbreviatedParentHash>
-                    <scmGitAuthorName>${scmGit.authorName}</scmGitAuthorName>
-                    <scmGitAuthorEmail>${scmGit.authorEmail}</scmGitAuthorEmail>
-                    <scmGitAuthorDate>${scmGit.authorDate}</scmGitAuthorDate>
-                    <scmGitAuthorDateRFC2822>${scmGit.authorDateRFC2822}</scmGitAuthorDateRFC2822>
-                    <scmGitAuthorDateRelative>${scmGit.authorDateRelative}</scmGitAuthorDateRelative>
-                    <scmGitAuthorDateUNIX>${scmGit.authorDateUNIX}</scmGitAuthorDateUNIX>
-                    <scmGitAuthorDateISO8601>${scmGit.authorDateISO8601}</scmGitAuthorDateISO8601>
-                    <scmGitAuthorDateISO8601Strict>${scmGit.authorDateISO8601Strict}</scmGitAuthorDateISO8601Strict>
-                    <scmGitCommitterName>${scmGit.committerName}</scmGitCommitterName>
-                    <scmGitCommitterEmail>${scmGit.committerEmail}</scmGitCommitterEmail>
-                    <scmGitCommitterDate>${scmGit.committerDate}</scmGitCommitterDate>
-                    <scmGitCommitterDateRFC2822>${scmGit.committerDateRFC2822}</scmGitCommitterDateRFC2822>
-                    <scmGitCommitterDateRelative>${scmGit.committerDateRelative}</scmGitCommitterDateRelative>
-                    <scmGitCommitterDateUNIX>${scmGit.committerDateUNIX}</scmGitCommitterDateUNIX>
-                    <scmGitCommitterDateISO8601>${scmGit.committerDateISO8601}</scmGitCommitterDateISO8601>
-                    <scmGitCommitterDateISO8601Strict>${scmGit.committerDateISO8601Strict}</scmGitCommitterDateISO8601Strict>
-                    <scmGitRefNamesDecorate>${scmGit.refNamesDecorate}</scmGitRefNamesDecorate>
-                    <scmGitRefNames>${scmGit.refNames}</scmGitRefNames>
-                    <scmGitSubject>${scmGit.subject}</scmGitSubject>
-                    <scmGitSanitizedSubject>${scmGit.sanitizedSubject}</scmGitSanitizedSubject>
-                    <scmGitBody>${scmGit.body}</scmGitBody>
-                  </manifestEntries>
-                </archive>
-              </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <buildNumber>${buildNumber}</buildNumber>
+                            <mavenBuildTimestamp>${maven.build.timestamp}</mavenBuildTimestamp>
+                            <projectArtifactId>${project.artifactId}</projectArtifactId>
+                            <projectVersion>${project.version}</projectVersion>
+                            <projectUrl>${project.url}</projectUrl>
+                            <scmGitRemoteUrl>${scmGit.remoteUrl}</scmGitRemoteUrl>
+                            <scmGitBranch>${scmGit.branch}</scmGitBranch>
+                            <scmGitCommitsCount>${scmGit.commitsCount}</scmGitCommitsCount>
+                            <scmGitRevision>${scmGit.revision}</scmGitRevision>
+                            <scmGitShortRevision>${scmGit.shortRevision}</scmGitShortRevision>
+                            <scmGitCommitHash>${scmGit.commitHash}</scmGitCommitHash>
+                            <scmGitAbbreviatedCommitHash>${scmGit.abbreviatedCommitHash}</scmGitAbbreviatedCommitHash>
+                            <scmGitTreeHash>${scmGit.treeHash}</scmGitTreeHash>
+                            <scmGitAbbreviatedTreeHash>${scmGit.abbreviatedTreeHash}</scmGitAbbreviatedTreeHash>
+                            <scmGitParentHash>${scmGit.parentHash}</scmGitParentHash>
+                            <scmGitAbbreviatedParentHash>${scmGit.abbreviatedParentHash}</scmGitAbbreviatedParentHash>
+                            <scmGitAuthorName>${scmGit.authorName}</scmGitAuthorName>
+                            <scmGitAuthorEmail>${scmGit.authorEmail}</scmGitAuthorEmail>
+                            <scmGitAuthorDate>${scmGit.authorDate}</scmGitAuthorDate>
+                            <scmGitAuthorDateRFC2822>${scmGit.authorDateRFC2822}</scmGitAuthorDateRFC2822>
+                            <scmGitAuthorDateRelative>${scmGit.authorDateRelative}</scmGitAuthorDateRelative>
+                            <scmGitAuthorDateUNIX>${scmGit.authorDateUNIX}</scmGitAuthorDateUNIX>
+                            <scmGitAuthorDateISO8601>${scmGit.authorDateISO8601}</scmGitAuthorDateISO8601>
+                            <scmGitAuthorDateISO8601Strict>${scmGit.authorDateISO8601Strict}</scmGitAuthorDateISO8601Strict>
+                            <scmGitCommitterName>${scmGit.committerName}</scmGitCommitterName>
+                            <scmGitCommitterEmail>${scmGit.committerEmail}</scmGitCommitterEmail>
+                            <scmGitCommitterDate>${scmGit.committerDate}</scmGitCommitterDate>
+                            <scmGitCommitterDateRFC2822>${scmGit.committerDateRFC2822}</scmGitCommitterDateRFC2822>
+                            <scmGitCommitterDateRelative>${scmGit.committerDateRelative}</scmGitCommitterDateRelative>
+                            <scmGitCommitterDateUNIX>${scmGit.committerDateUNIX}</scmGitCommitterDateUNIX>
+                            <scmGitCommitterDateISO8601>${scmGit.committerDateISO8601}</scmGitCommitterDateISO8601>
+                            <scmGitCommitterDateISO8601Strict>${scmGit.committerDateISO8601Strict}</scmGitCommitterDateISO8601Strict>
+                            <scmGitRefNamesDecorate>${scmGit.refNamesDecorate}</scmGitRefNamesDecorate>
+                            <scmGitRefNames>${scmGit.refNames}</scmGitRefNames>
+                            <scmGitSubject>${scmGit.subject}</scmGitSubject>
+                            <scmGitSanitizedSubject>${scmGit.sanitizedSubject}</scmGitSanitizedSubject>
+                            <scmGitBody>${scmGit.body}</scmGitBody>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
             <plugin>
-              <groupId>org.owasp</groupId>
-              <artifactId>dependency-check-maven</artifactId>
-              <version>1.4.5</version>
-              <executions>
-                <execution>
-                  <goals>
-                    <goal>check</goal>
-                  </goals>
-                </execution>
-              </executions>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>1.4.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
