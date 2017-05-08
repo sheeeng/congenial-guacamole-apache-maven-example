@@ -49,7 +49,7 @@ mvn clean install \
     --define scmGit.body="$(git --no-pager show -s --format=%b HEAD)" \
     --update-snapshots
 
-/cygdrive/c/Program\ Files/Java/jdk1.8.0_121/bin/jar xvf ./target/*.jar META-INF/MANIFEST.MF && \
+/cygdrive/c/Program\ Files/Java/jdk1.8.0_131/bin/jar xvf ./target/*.jar META-INF/MANIFEST.MF && \
 cat META-INF/MANIFEST.MF && \
 rm -rfv META-INF
 
