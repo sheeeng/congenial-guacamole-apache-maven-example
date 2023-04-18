@@ -1,6 +1,4 @@
-# elpmaxe-congenial-guacamole
-
-Example
+# congenial-guacamole-apache-maven-example
 
 * Build Apache Maven project.
 
