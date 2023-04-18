@@ -49,12 +49,16 @@ mvn clean install \
     --define scmGit.body="$(git --no-pager show -s --format=%b HEAD)" \
     --update-snapshots
 
-/cygdrive/c/Program\ Files/Java/jdk1.8.0_131/bin/jar xvf ./target/*.jar META-INF/MANIFEST.MF && \
-cat META-INF/MANIFEST.MF && \
-rm -rfv META-INF
+# /cygdrive/c/Program\ Files/Java/jdk1.8.0_131/bin/jar xvf ./target/*.jar META-INF/MANIFEST.MF && \
+# cat META-INF/MANIFEST.MF && \
+# rm -rfv META-INF
 
+# mvn clean
+# mvn compile
+mvn dependency:tree -Ddetail=true
+# mvn package
 mvn versions:display-dependency-updates
-
 mvn versions:display-plugin-updates
-
 mvn versions:display-property-updates
+mvn versions:use-latest-releases
+mvn versions:use-releases

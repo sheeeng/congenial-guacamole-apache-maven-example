@@ -16,13 +16,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.resources.escapeString>\</maven.resources.escapeString>
         <springframework.version>6.0.8</springframework.version>
-        <jidesoft.version>3.5.9</jidesoft.version>
+        <jidesoft.version>3.6.18</jidesoft.version>
         <slf4j.version>2.0.7</slf4j.version>
         <log4j2.version>2.20.0</log4j2.version>
     </properties>
+    <!--
     <prerequisites>
         <maven>3.1</maven>
     </prerequisites>
+    -->
     <dependencies>
         <!-- tag::joda[] -->
         <dependency>
@@ -156,6 +158,12 @@
         </dependency>
         <dependency>
             <groupId>com.jidesoft</groupId>
+            <artifactId>jide-oss</artifactId>
+            <version>${jidesoft.version}</version>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>com.jidesoft</groupId>
             <artifactId>jide-common</artifactId>
             <version>${jidesoft.version}</version>
         </dependency>
@@ -169,6 +177,7 @@
             <artifactId>jide-grids</artifactId>
             <version>${jidesoft.version}</version>
         </dependency>
+        -->
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
@@ -202,7 +211,9 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <distributionManagement>
+        <!--
         <repository>
             <id>credentialNexus214302</id>
             <name>Contoso Releases</name>
@@ -213,33 +224,78 @@
             <name>Contoso Snapshots</name>
             <url>http://172.17.0.3:8081/nexus/content/repositories/contoso-snapshots/</url>
         </snapshotRepository>
+        -->
     </distributionManagement>
+
     <!-- If you have access to scm then you can place actual url's.
     Otherwise with <revisionOnScmFailure /> you can give some fake URLs as follows. -->
     <scm>
         <!-- connection>scm:git:http://127.0.0.1/dummy</connection><developerConnection>scm:git:https://127.0.0.1/dummy</developerConnection><tag>HEAD</tag><url>http://127.0.0.1/dummy</url> -->
-        <connection>scm:git:https://github.com/sheeeng/elpmaxe-congenial-guacamole</connection>
-        <developerConnection>scm:git:https://github.com/sheeeng/elpmaxe-congenial-guacamole</developerConnection>
+        <connection>scm:git:https://github.com/sheeeng/congenial-guacamole-apache-maven-example</connection>
+        <developerConnection>scm:git:https://github.com/sheeeng/congenial-guacamole-apache-maven-example</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/sheeeng/elpmaxe-congenial-guacamole</url>
+        <url>https://github.com/sheeeng/congenial-guacamole-apache-maven-example</url>
     </scm>
     <build>
         <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
         <plugins>
+            <!-- https://stackoverflow.com/questions/15871065/classnotfoundexception-in-maven-project/16112614#16112614 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <useBaseVersion>false</useBaseVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                    <id>enforce-versions</id>
+                    <goals>
+                        <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                        <rules>
+                        <requireMavenVersion>
+                            <version>3.2.5</version>
+                        </requireMavenVersion>
+                        </rules>
+                    </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>3.11.0</version>
                 <configuration>
                     <!-- https://issues.apache.org/jira/browse/MCOMPILER-209 -->
                     <!-- http://stackoverflow.com/a/17948010 -->
                     <useIncrementalCompilation>false</useIncrementalCompilation>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>default-deploy</id>
@@ -253,7 +309,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.4</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <phase>generate-resources</phase>
@@ -269,12 +325,27 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>org.contoso.guacamole.PotatoMain</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.3.0</version>
                 <configuration>
                     <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>dependency/</classpathPrefix>
+                            <mainClass>guacamole.PotatoMain</mainClass>
+                        </manifest>
                         <manifestEntries>
+                            <Class-Path>lib</Class-Path>
                             <buildNumber>${buildNumber}</buildNumber>
                             <mavenBuildTimestamp>${maven.build.timestamp}</mavenBuildTimestamp>
                             <projectArtifactId>${project.artifactId}</projectArtifactId>
@@ -319,7 +390,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>3.2.0</version>
+                <version>8.2.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -331,7 +402,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.4.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -353,14 +424,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>3.0.0</version>
             </plugin>
             <!-- To use the plugin goals in your POM or parent POM -->
             <!-- http://www.mojohaus.org/versions-maven-plugin/plugin-info.html -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.15.0</version>
             </plugin>
         </plugins>
     </build>

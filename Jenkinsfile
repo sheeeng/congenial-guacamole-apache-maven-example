@@ -25,7 +25,7 @@ node {
         submoduleCfg: [],
         userRemoteConfigs: [[
             credentialsId: 'fd8ecd69-7ee9-481e-9061-69cc669c29bc',
-            url: 'https://github.com/sheeeng/elpmaxe-congenial-guacamole.git']]
+            url: 'https://github.com/sheeeng/congenial-guacamole-apache-maven-example.git']]
         ])
         // Get the Maven tool.
         // ** NOTE: This 'M3' Maven tool must be configured
